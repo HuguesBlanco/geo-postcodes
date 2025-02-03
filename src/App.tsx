@@ -1,12 +1,9 @@
 import React from 'react';
+import AppRouter from './AppRouter';
 import './index.css';
 
 function App(): React.JSX.Element {
-  return (
-    <>
-      <div className="text-3xl font-bold">App</div>
-    </>
-  );
+  return <AppRouter />;
 }
 
 export default App;
