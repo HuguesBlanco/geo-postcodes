@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router';
+import NavigationContainer from '../containers/NavigationContainer';
 
 function Home(): React.JSX.Element {
   return (
     <div>
+      <NavigationContainer />
       <h1>Home Page</h1>
-      <Link to="/data-explorer">Go to Data Explorer</Link>
     </div>
   );
 }
