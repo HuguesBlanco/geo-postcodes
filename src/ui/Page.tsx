@@ -7,9 +7,9 @@ type PageProps = {
 
 function Page({ navigationComponent, children }: PageProps): React.JSX.Element {
   return (
-    <div>
+    <div className="w-full min-h-screen flex flex-col">
       <div>{navigationComponent}</div>
-      <div>{children}</div>
+      <div className="flex-1 flex flex-col">{children}</div>
     </div>
   );
 }

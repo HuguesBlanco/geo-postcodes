@@ -1,15 +1,10 @@
 import React from 'react';
 import geoPostcodeLogo from '../assets/Geopostcodes-logo-header.svg';
-
-type linkDatum = {
-  key: string;
-  label: string;
-  navigationCallback: () => void;
-};
+import { LinkList } from '../types/linkTypes';
 
 type NavigationProps = {
   onLogoClick?: () => void;
-  links: linkDatum[];
+  links: LinkList;
   activeLinkKey?: string;
   connectedMenu?: React.ReactNode;
 };
