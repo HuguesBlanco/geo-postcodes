@@ -1,5 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import NavigationContainer from '../containers/NavigationContainer';
+import Page from '../ui/Page';
 
 type PageParameters = {
   id: string;
@@ -13,10 +15,9 @@ function DataDetail(): React.JSX.Element {
   }
 
   return (
-    <div>
-      <h1>Data Detail</h1>
-      <p>ID: {id}</p>
-    </div>
+    <Page navigationComponent={<NavigationContainer />}>
+      <div>Detail</div>
+    </Page>
   );
 }
 

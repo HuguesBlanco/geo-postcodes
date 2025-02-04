@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router';
 import NavigationContainer from '../containers/NavigationContainer';
 import { getCountries } from '../services/countriesServices';
 import { Countries } from '../types/countriesTypes';
 import { Result } from '../types/fetchTypes';
+import Page from '../ui/Page';
 
 function DataExplorer(): React.JSX.Element {
   const [countriesResult, setCountriesResult] =
@@ -36,20 +36,10 @@ function DataExplorer(): React.JSX.Element {
 
   console.log(countriesResult);
 
-  const dataIds = ['1', '2', '3'];
-
   return (
-    <div>
-      <NavigationContainer />
-      <h1>Data Explorer</h1>
-      <ul>
-        {dataIds.map((id) => (
-          <li key={id}>
-            <Link to={`/data-explorer/${id}`}>Data {id}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Page navigationComponent={<NavigationContainer />}>
+      <div>Data Explorer</div>
+    </Page>
   );
 }
 
