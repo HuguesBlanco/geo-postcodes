@@ -1,7 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { getCountries } from '../services/countriesServices';
+import { Countries } from '../types/countriesTypes';
+import { Result } from '../types/fetchTypes';
 
 function DataExplorer(): React.JSX.Element {
+  const [countriesResult, setCountriesResult] =
+    useState<Result<Countries> | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const { countriesResult, abort } = getCountries();
+
+    void countriesResult
+      .then((result) => {
+        setCountriesResult(result);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    return abort;
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (countriesResult && !countriesResult.isSuccess) {
+    return <p>Error: {countriesResult.error.message}</p>;
+  }
+
+  console.log(countriesResult);
+
   const dataIds = ['1', '2', '3'];
 
   return (
