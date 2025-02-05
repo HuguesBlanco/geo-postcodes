@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { Countries, Country } from '../types/countriesTypes';
-import { isCountries, isCountry } from './countriesUtils';
+import {
+  groupCountriesByContinent,
+  isCountries,
+  isCountry,
+} from './countriesUtils';
 
 describe('isCountry', () => {
   it('should return true for a valid Country object', () => {
@@ -121,5 +125,160 @@ describe('isCountries', () => {
 
   it('should return true for an empty array', () => {
     expect(isCountries([])).toBe(true);
+  });
+});
+
+describe('groupCountriesByContinent', () => {
+  it('should group countries by their continent', () => {
+    const initialCountries: Countries = [
+      {
+        name: 'Canada',
+        iso: 'CA',
+        continent: 'North America',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'Canada',
+        continentCode: 10,
+      },
+      {
+        name: 'Mexico',
+        iso: 'MX',
+        continent: 'North America',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'Mexico',
+        continentCode: 10,
+      },
+      {
+        name: 'United States',
+        iso: 'US',
+        continent: 'North America',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'USA',
+        continentCode: 10,
+      },
+      {
+        name: 'France',
+        iso: 'FR',
+        continent: 'Western Europe',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'France',
+        continentCode: 20,
+      },
+      {
+        name: 'Germany',
+        iso: 'DE',
+        continent: 'Western Europe',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'Germany',
+        continentCode: 20,
+      },
+    ];
+
+    const expectedGroupedCountries = {
+      'North America': [
+        {
+          name: 'Canada',
+          iso: 'CA',
+          continent: 'North America',
+          noPostalCode: false,
+          limited: false,
+          notAvailable: false,
+          url: 'Canada',
+          continentCode: 10,
+        },
+        {
+          name: 'Mexico',
+          iso: 'MX',
+          continent: 'North America',
+          noPostalCode: false,
+          limited: false,
+          notAvailable: false,
+          url: 'Mexico',
+          continentCode: 10,
+        },
+        {
+          name: 'United States',
+          iso: 'US',
+          continent: 'North America',
+          noPostalCode: false,
+          limited: false,
+          notAvailable: false,
+          url: 'USA',
+          continentCode: 10,
+        },
+      ],
+      'Western Europe': [
+        {
+          name: 'France',
+          iso: 'FR',
+          continent: 'Western Europe',
+          noPostalCode: false,
+          limited: false,
+          notAvailable: false,
+          url: 'France',
+          continentCode: 20,
+        },
+        {
+          name: 'Germany',
+          iso: 'DE',
+          continent: 'Western Europe',
+          noPostalCode: false,
+          limited: false,
+          notAvailable: false,
+          url: 'Germany',
+          continentCode: 20,
+        },
+      ],
+    };
+
+    const actualGroupedCountries = groupCountriesByContinent(initialCountries);
+    expect(actualGroupedCountries).toEqual(expectedGroupedCountries);
+  });
+
+  it('should return an empty object when given an empty array', () => {
+    const initialCountries: Countries = [];
+    const expectedGroupedCountries = {};
+    const actualGroupedCountries = groupCountriesByContinent(initialCountries);
+    expect(actualGroupedCountries).toEqual(expectedGroupedCountries);
+  });
+
+  it('should handle a single country correctly', () => {
+    const initialCountries: Countries = [
+      {
+        name: 'Ireland',
+        iso: 'IE',
+        continent: 'Western Europe',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'Ireland',
+        continentCode: 20,
+      },
+    ];
+    const expectedGroupedCountries = {
+      'Western Europe': [
+        {
+          name: 'Ireland',
+          iso: 'IE',
+          continent: 'Western Europe',
+          noPostalCode: false,
+          limited: false,
+          notAvailable: false,
+          url: 'Ireland',
+          continentCode: 20,
+        },
+      ],
+    };
+    const actualGroupedCountries = groupCountriesByContinent(initialCountries);
+    expect(actualGroupedCountries).toEqual(expectedGroupedCountries);
   });
 });

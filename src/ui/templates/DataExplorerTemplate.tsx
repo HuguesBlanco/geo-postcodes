@@ -11,13 +11,11 @@ type DataExplorerTemplateProps = {
 function DataExplorerTemplate({
   countries,
 }: DataExplorerTemplateProps): React.JSX.Element {
-  console.log(countries);
-
   return (
     <div className="container mx-auto  flex">
       <div className="flex-2">
         <h1 className="my-6 text-2xl font-black">Data Explorer</h1>
-        <CountriesList />
+        <CountriesList countries={countries} />
       </div>
       <div className="flex-1">
         <SearchInput />

@@ -26,3 +26,20 @@ export function isCountry(data: unknown): data is Country {
 export function isCountries(data: unknown): data is Countries {
   return Array.isArray(data) && data.every(isCountry);
 }
+
+export function groupCountriesByContinent(
+  countries: Countries,
+): Record<string, Countries> {
+  return countries.reduce<Record<string, Countries>>(
+    (groupedCountries, country) => {
+      return {
+        ...groupedCountries,
+        [country.continent]: [
+          ...(groupedCountries[country.continent] ?? []),
+          country,
+        ],
+      };
+    },
+    {},
+  );
+}

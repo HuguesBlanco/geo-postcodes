@@ -33,13 +33,11 @@ function DataExplorerContainer(): React.JSX.Element {
     return <p>Error: {countriesResult.error.message}</p>;
   }
 
-  return (
-    <>
-      {countriesResult !== null && (
-        <DataExplorerTemplate countries={countriesResult.data} />
-      )}
-    </>
-  );
+  if (countriesResult?.isSuccess) {
+    return <DataExplorerTemplate countries={countriesResult.data} />;
+  }
+
+  return <p>Error</p>;
 }
 
 export default DataExplorerContainer;
