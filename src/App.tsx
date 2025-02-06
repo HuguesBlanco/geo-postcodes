@@ -1,6 +1,6 @@
 import React from 'react';
-import AppRouter from './AppRouter';
 import './index.css';
+import AppRouter from './routes/AppRouter';
 
 function App(): React.JSX.Element {
   return <AppRouter />;

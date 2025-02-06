@@ -1,25 +1,28 @@
 import React from 'react';
 import geoPostcodeLogo from '../../assets/Geopostcodes-logo-header.svg';
-import { LinkList } from '../../types/linkTypes';
+import { LinkDatum, LinksData } from '../../types/linksTypes';
 
-type NavigationProps = {
-  onLogoClick?: () => void;
-  links: LinkList;
-  activeLinkKey?: string;
-  connectedMenu?: React.ReactNode;
+type MenuProps = {
+  logoLink: LinkDatum;
+  navigationLinks: LinksData;
+  currentPath: string;
+  userMenu?: React.ReactNode;
 };
 
-function Navigation({
-  links,
-  activeLinkKey,
-  connectedMenu,
-  onLogoClick,
-}: NavigationProps): React.ReactElement {
+function Menu({
+  logoLink,
+  navigationLinks,
+  currentPath,
+  userMenu,
+}: MenuProps): React.ReactElement {
   return (
     <nav className="bg-blue-900">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-6">
-          <button onClick={onLogoClick} className="focus:outline-none">
+          <button
+            onClick={logoLink.navigationCallback}
+            className="focus:outline-none"
+          >
             <img
               src={geoPostcodeLogo}
               alt="GeoPostcodes Logo"
@@ -28,8 +31,8 @@ function Navigation({
           </button>
 
           <ul className="flex space-x-6">
-            {links.map((link) => {
-              const isActive = activeLinkKey === link.key;
+            {navigationLinks.map((link) => {
+              const isActive = currentPath === link.key;
               return (
                 <li key={link.key}>
                   <button
@@ -48,10 +51,10 @@ function Navigation({
           </ul>
         </div>
 
-        <div className="text-white">{connectedMenu}</div>
+        <div className="text-white">{userMenu}</div>
       </div>
     </nav>
   );
 }
 
-export default Navigation;
+export default Menu;

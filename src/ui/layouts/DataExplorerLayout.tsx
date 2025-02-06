@@ -4,15 +4,15 @@ import CountriesList from '../elements/CountriesList';
 import DataSummary from '../elements/DataSummary';
 import SearchBar from '../elements/SearchBar';
 
-type DataExplorerTemplateProps = {
+type DataExplorerLayoutProps = {
   countries: Countries;
   setSearchValue: (searchedValue: string) => void;
 };
 
-function DataExplorerTemplate({
+function DataExplorerLayout({
   countries,
   setSearchValue,
-}: DataExplorerTemplateProps): React.JSX.Element {
+}: DataExplorerLayoutProps): React.JSX.Element {
   return (
     <div className="container mx-auto  flex">
       <div className="flex-2">
@@ -30,4 +30,4 @@ function DataExplorerTemplate({
   );
 }
 
-export default DataExplorerTemplate;
+export default DataExplorerLayout;

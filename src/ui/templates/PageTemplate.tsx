@@ -1,11 +1,14 @@
 import React from 'react';
 
-type PageProps = {
+type PageTemplateProps = {
   navigationComponent: React.JSX.Element;
   children: React.JSX.Element;
 };
 
-function Page({ navigationComponent, children }: PageProps): React.JSX.Element {
+function PageTemplate({
+  navigationComponent,
+  children,
+}: PageTemplateProps): React.JSX.Element {
   return (
     <div className="w-full min-h-screen flex flex-col">
       <div>{navigationComponent}</div>
@@ -14,4 +17,4 @@ function Page({ navigationComponent, children }: PageProps): React.JSX.Element {
   );
 }
 
-export default Page;
+export default PageTemplate;

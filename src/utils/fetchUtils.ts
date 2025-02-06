@@ -1,8 +1,8 @@
-import { Result } from '../types/fetchTypes';
+import { FetchResult } from '../types/fetchTypes';
 
 export function parseFetchResponse(
   response: Response,
-): Promise<Result<unknown>> {
+): Promise<FetchResult<unknown>> {
   if (!response.ok) {
     const statusCode = String(response.status);
     const statusMessage = response.statusText;
@@ -29,7 +29,7 @@ export function parseFetchResponse(
 export function validateData<T>(
   data: unknown,
   validator: (data: unknown) => data is T,
-): Result<T> {
+): FetchResult<T> {
   if (!validator(data)) {
     return {
       isSuccess: false as const,
@@ -43,7 +43,7 @@ export function validateData<T>(
   };
 }
 
-export function normalizeFetchError(error: unknown): Result<never> {
+export function normalizeFetchError(error: unknown): FetchResult<never> {
   const normalizedError =
     error instanceof Error
       ? structuredClone(error)

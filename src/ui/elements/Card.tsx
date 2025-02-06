@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkDatum } from '../types/linkTypes';
+import { LinkDatum } from '../../types/linksTypes';
 
 type CardProps = {
   link: LinkDatum;

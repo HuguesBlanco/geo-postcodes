@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getCountries } from '../services/countriesServices';
 import { Countries } from '../types/countriesTypes';
-import { Result } from '../types/fetchTypes';
-import DataExplorerTemplate from '../ui/templates/DataExplorerTemplate';
+import { FetchResult } from '../types/fetchTypes';
+import DataExplorerLayout from '../ui/layouts/DataExplorerLayout';
 
 function DataExplorerContainer(): React.JSX.Element {
   const [countriesResult, setCountriesResult] =
-    useState<Result<Countries> | null>(null);
+    useState<FetchResult<Countries> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [searchValue, setSearchValue] = useState('');
@@ -38,7 +38,7 @@ function DataExplorerContainer(): React.JSX.Element {
 
   if (countriesResult?.isSuccess) {
     return (
-      <DataExplorerTemplate
+      <DataExplorerLayout
         countries={countriesResult.data}
         setSearchValue={setSearchValue}
       />

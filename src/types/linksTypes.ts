@@ -4,4 +4,4 @@ export type LinkDatum = {
   navigationCallback: () => void;
 };
 
-export type LinkList = LinkDatum[];
+export type LinksData = LinkDatum[];

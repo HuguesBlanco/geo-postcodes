@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Countries } from '../types/countriesTypes';
-import { Result } from '../types/fetchTypes';
 import { getCountries } from './countriesServices';
 
 const mockCountries: Countries = [
@@ -33,7 +32,7 @@ describe('getCountries', () => {
 
     const { countriesResult } = getCountries();
     const actualResult = await countriesResult;
-    const expectedResult: Result<Countries> = {
+    const expectedResult = {
       isSuccess: true,
       data: mockCountries,
     };
@@ -49,7 +48,7 @@ describe('getCountries', () => {
 
     const { countriesResult } = getCountries();
     const actualResult = await countriesResult;
-    const expectedResult: Result<Countries> = {
+    const expectedResult = {
       isSuccess: false,
       error: new Error('Network failure'),
     };

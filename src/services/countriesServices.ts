@@ -1,5 +1,5 @@
 import { Countries } from '../types/countriesTypes';
-import { Result } from '../types/fetchTypes';
+import { FetchResult } from '../types/fetchTypes';
 import { isCountries } from '../utils/countriesUtils';
 import {
   normalizeFetchError,
@@ -8,7 +8,7 @@ import {
 } from '../utils/fetchUtils';
 
 export function getCountries(): {
-  countriesResult: Promise<Result<Countries>>;
+  countriesResult: Promise<FetchResult<Countries>>;
   abort: () => void;
 } {
   const controller = new AbortController();

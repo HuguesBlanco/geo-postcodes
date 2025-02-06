@@ -1,12 +1,22 @@
-import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import Navigation from '../ui/elements/Navigation';
+import { LinkDatum, LinksData } from '../types/linksTypes';
 
-function NavigationContainer(): React.JSX.Element {
+export function useNavigation(): {
+  logoLink: LinkDatum;
+  navigationLinks: LinksData;
+  urlPath: string;
+} {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const links = [
+  const logoLink = {
+    key: '/',
+    label: 'Home',
+    navigationCallback: (): void => {
+      void navigate('/');
+    },
+  };
+
+  const navigationLinks = [
     {
       key: '/data-explorer',
       label: 'Data Explorer',
@@ -37,18 +47,8 @@ function NavigationContainer(): React.JSX.Element {
     },
   ];
 
-  const handleLogoClick = (): void => {
-    void navigate('/');
-  };
+  const location = useLocation();
+  const urlPath = location.pathname;
 
-  return (
-    <Navigation
-      onLogoClick={handleLogoClick}
-      links={links}
-      activeLinkKey={location.pathname}
-      connectedMenu={<div>Profile</div>}
-    />
-  );
+  return { logoLink, navigationLinks: navigationLinks, urlPath };
 }
-
-export default NavigationContainer;

@@ -4,14 +4,14 @@ import downloadCenterImagePath from '../../assets/dowload_center.svg';
 import knowledgeBaseImagePath from '../../assets/kb.svg';
 import backgroundImagePath from '../../assets/main_background.webp';
 import mapExplorerImagePath from '../../assets/map_explorer.webp';
-import { LinkList } from '../../types/linkTypes';
+import { LinksData } from '../../types/linksTypes';
 import Card from '../elements/Card';
 
-type HomeTemplateProps = {
-  links: LinkList;
+type HomeLayoutProps = {
+  links: LinksData;
 };
 
-function HomeTemplate({ links }: HomeTemplateProps): React.JSX.Element {
+function HomeLayout({ links }: HomeLayoutProps): React.JSX.Element {
   const cardBackgroundPaths = [
     dataExplorerImagePath,
     mapExplorerImagePath,
@@ -48,4 +48,4 @@ function HomeTemplate({ links }: HomeTemplateProps): React.JSX.Element {
   );
 }
 
-export default HomeTemplate;
+export default HomeLayout;
