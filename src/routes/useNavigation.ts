@@ -5,6 +5,7 @@ export function useNavigation(): {
   homePageLink: LinkDatum;
   navigationLinks: LinksData;
   urlPath: string;
+  navigationCallback: (urrPath: string) => void;
 } {
   const navigate = useNavigate();
 
@@ -50,9 +51,14 @@ export function useNavigation(): {
   const location = useLocation();
   const urlPath = location.pathname;
 
+  const navigationCallback = (urlPath: string): void => {
+    void navigate(urlPath);
+  };
+
   return {
     homePageLink: homePageLink,
     navigationLinks: navigationLinks,
     urlPath,
+    navigationCallback,
   };
 }
