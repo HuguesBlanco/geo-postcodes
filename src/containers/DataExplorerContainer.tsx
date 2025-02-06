@@ -9,6 +9,9 @@ function DataExplorerContainer(): React.JSX.Element {
     useState<Result<Countries> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [searchValue, setSearchValue] = useState('');
+  console.log(searchValue);
+
   useEffect(() => {
     setIsLoading(true);
 
@@ -34,7 +37,12 @@ function DataExplorerContainer(): React.JSX.Element {
   }
 
   if (countriesResult?.isSuccess) {
-    return <DataExplorerTemplate countries={countriesResult.data} />;
+    return (
+      <DataExplorerTemplate
+        countries={countriesResult.data}
+        setSearchValue={setSearchValue}
+      />
+    );
   }
 
   return <p>Error</p>;

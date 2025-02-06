@@ -2,14 +2,16 @@ import React from 'react';
 import { Countries } from '../../types/countriesTypes';
 import CountriesList from '../ui/CountriesList';
 import DataSummary from '../ui/DataSummary';
-import SearchInput from '../ui/SearchInput';
+import SearchBar from '../ui/SearchBar';
 
 type DataExplorerTemplateProps = {
   countries: Countries;
+  setSearchValue: (searchedValue: string) => void;
 };
 
 function DataExplorerTemplate({
   countries,
+  setSearchValue,
 }: DataExplorerTemplateProps): React.JSX.Element {
   return (
     <div className="container mx-auto  flex">
@@ -18,7 +20,10 @@ function DataExplorerTemplate({
         <CountriesList countries={countries} />
       </div>
       <div className="flex-1">
-        <SearchInput />
+        <SearchBar
+          placeholder="Search by postcode, locality, or region"
+          onChange={setSearchValue}
+        />
         <DataSummary />
       </div>
     </div>
