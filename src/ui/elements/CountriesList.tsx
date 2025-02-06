@@ -7,7 +7,7 @@ type CountriesListProps = {
   visitPage: (urlPath: string) => void;
 };
 
-function CountriesList({
+function CountryList({
   countries,
   visitPage,
 }: CountriesListProps): React.JSX.Element {
@@ -43,4 +43,4 @@ function CountriesList({
   );
 }
 
-export default CountriesList;
+export default CountryList;
