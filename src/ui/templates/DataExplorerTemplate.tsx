@@ -1,8 +1,8 @@
 import React from 'react';
 import { Countries } from '../../types/countriesTypes';
-import CountriesList from '../ui/CountriesList';
-import DataSummary from '../ui/DataSummary';
-import SearchBar from '../ui/SearchBar';
+import CountriesList from '../elements/CountriesList';
+import DataSummary from '../elements/DataSummary';
+import SearchBar from '../elements/SearchBar';
 
 type DataExplorerTemplateProps = {
   countries: Countries;

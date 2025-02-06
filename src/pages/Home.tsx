@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeContainer from '../containers/HomeContainer';
 import NavigationContainer from '../containers/NavigationContainer';
-import Page from '../ui/Page';
+import Page from '../ui/elements/Page';
 
 function Home(): React.JSX.Element {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
-import geoPostcodeLogo from '../assets/Geopostcodes-logo-header.svg';
-import { LinkList } from '../types/linkTypes';
+import geoPostcodeLogo from '../../assets/Geopostcodes-logo-header.svg';
+import { LinkList } from '../../types/linkTypes';
 
 type NavigationProps = {
   onLogoClick?: () => void;

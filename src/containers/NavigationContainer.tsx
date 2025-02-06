@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import Navigation from '../ui/Navigation';
+import Navigation from '../ui/elements/Navigation';
 
 function NavigationContainer(): React.JSX.Element {
   const navigate = useNavigate();

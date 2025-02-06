@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import NavigationContainer from '../containers/NavigationContainer';
-import Page from '../ui/Page';
+import Page from '../ui/elements/Page';
 
 type PageParameters = {
   id: string;

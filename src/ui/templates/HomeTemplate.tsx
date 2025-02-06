@@ -5,7 +5,7 @@ import knowledgeBaseImagePath from '../../assets/kb.svg';
 import backgroundImagePath from '../../assets/main_background.webp';
 import mapExplorerImagePath from '../../assets/map_explorer.webp';
 import { LinkList } from '../../types/linkTypes';
-import Card from '../Card';
+import Card from '../elements/Card';
 
 type HomeTemplateProps = {
   links: LinkList;
