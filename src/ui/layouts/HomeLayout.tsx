@@ -30,7 +30,7 @@ function HomeLayout({ links }: HomeLayoutProps): React.JSX.Element {
         <div className="grid grid-cols-2 gap-8 justify-items-center">
           {links.map((link, index) => (
             <Card
-              key={link.key}
+              key={link.path}
               link={link}
               backgroundImagePath={
                 cardBackgroundPaths[index] ?? dataExplorerImagePath

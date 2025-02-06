@@ -15,7 +15,7 @@ function NotFoundLayout({
         The page doesn&apos;t exist or hasn&apos;t been implemented yet.
       </p>
       <button
-        onClick={homePageLink.navigationCallback}
+        onClick={homePageLink.visit}
         className="px-6 py-3 bg-blue-900 text-white font-semibold rounded-lg shadow-md hover:bg-blue-800 transition"
       >
         Go back to Home Page

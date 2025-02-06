@@ -9,7 +9,7 @@ type CardProps = {
 function Card({ link, backgroundImagePath }: CardProps): React.JSX.Element {
   return (
     <div
-      onClick={link.navigationCallback}
+      onClick={link.visit}
       className="cursor-pointer rounded-lg shadow-md p-6 hover:shadow-lg transition-all w-96 h-36 bg-blue-100 bg-no-repeat bg-contain bg-right-bottom"
       style={{ backgroundImage: `url(${backgroundImagePath})` }}
     >

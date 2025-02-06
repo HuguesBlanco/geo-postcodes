@@ -1,64 +1,61 @@
 import { useLocation, useNavigate } from 'react-router';
-import { LinkDatum, LinksData } from '../types/linksTypes';
+import { LinkBasis, LinkDatum, LinksData } from '../types/linksTypes';
 
 export function useNavigation(): {
   homePageLink: LinkDatum;
   navigationLinks: LinksData;
   urlPath: string;
-  navigationCallback: (urrPath: string) => void;
+  visitPage: (urlPath: string) => void;
 } {
+  const HOME_PAGE_LINK_INFO: LinkBasis = { path: '/', label: 'Home' } as const;
+
+  const NAVIGATION_LINK_INFO: LinkBasis[] = [
+    {
+      path: '/data-explorer',
+      label: 'Data Explorer',
+    },
+    {
+      path: '/map-explorer',
+      label: 'Map Explorer',
+    },
+    {
+      path: '/download-center',
+      label: 'Download Center',
+    },
+    {
+      path: '/knowledge-base',
+      label: 'Knowledge Base',
+    },
+  ] as const;
+
   const navigate = useNavigate();
 
-  const homePageLink = {
-    key: '/',
-    label: 'Home',
-    navigationCallback: (): void => {
-      void navigate('/');
-    },
+  const visitPage = (urlPath: string): void => {
+    void navigate(urlPath);
   };
 
-  const navigationLinks = [
-    {
-      key: '/data-explorer',
-      label: 'Data Explorer',
-      navigationCallback: (): void => {
-        void navigate('/data-explorer');
-      },
-    },
-    {
-      key: '/map-explorer',
-      label: 'Map Explorer',
-      navigationCallback: (): void => {
-        void navigate('/map-explorer');
-      },
-    },
-    {
-      key: '/download-center',
-      label: 'Download Center',
-      navigationCallback: (): void => {
-        void navigate('/download-center');
-      },
-    },
-    {
-      key: '/knowledge-base',
-      label: 'Knowledge Base',
-      navigationCallback: (): void => {
-        void navigate('/knowledge-base');
-      },
-    },
-  ];
+  const createLinkDatum = (linkInfo: LinkBasis): LinkDatum => {
+    const linkSpecificCallback = (): void => {
+      visitPage(linkInfo.path);
+    };
+
+    return {
+      ...linkInfo,
+      visit: linkSpecificCallback,
+    };
+  };
+
+  const homePageLink = createLinkDatum(HOME_PAGE_LINK_INFO);
+
+  const navigationLinks = NAVIGATION_LINK_INFO.map(createLinkDatum);
 
   const location = useLocation();
   const urlPath = location.pathname;
 
-  const navigationCallback = (urlPath: string): void => {
-    void navigate(urlPath);
-  };
-
   return {
-    homePageLink: homePageLink,
-    navigationLinks: navigationLinks,
+    homePageLink,
+    navigationLinks,
     urlPath,
-    navigationCallback,
+    visitPage,
   };
 }

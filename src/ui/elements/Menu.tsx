@@ -19,10 +19,7 @@ function Menu({
     <nav className="bg-blue-900">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-6">
-          <button
-            onClick={homePageLink.navigationCallback}
-            className="focus:outline-none"
-          >
+          <button onClick={homePageLink.visit} className="focus:outline-none">
             <img
               src={geoPostcodeLogo}
               alt="GeoPostcodes Logo"
@@ -32,11 +29,11 @@ function Menu({
 
           <ul className="flex space-x-6">
             {navigationLinks.map((link) => {
-              const isActive = currentPath === link.key;
+              const isActive = currentPath === link.path;
               return (
-                <li key={link.key}>
+                <li key={link.path}>
                   <button
-                    onClick={link.navigationCallback}
+                    onClick={link.visit}
                     className={`text-white p-4 block transition-colors duration-200 focus:outline-none ${
                       isActive
                         ? 'border-b-4 border-blue-300'
