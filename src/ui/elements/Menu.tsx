@@ -3,14 +3,14 @@ import geoPostcodeLogo from '../../assets/Geopostcodes-logo-header.svg';
 import { LinkDatum, LinksData } from '../../types/linksTypes';
 
 type MenuProps = {
-  logoLink: LinkDatum;
+  homePageLink: LinkDatum;
   navigationLinks: LinksData;
   currentPath: string;
   userMenu?: React.ReactNode;
 };
 
 function Menu({
-  logoLink,
+  homePageLink,
   navigationLinks,
   currentPath,
   userMenu,
@@ -20,7 +20,7 @@ function Menu({
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-6">
           <button
-            onClick={logoLink.navigationCallback}
+            onClick={homePageLink.navigationCallback}
             className="focus:outline-none"
           >
             <img

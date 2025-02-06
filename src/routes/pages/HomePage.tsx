@@ -5,14 +5,14 @@ import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
 
 function HomePage(): React.JSX.Element {
-  const { logoLink, navigationLinks: menuLinks, urlPath } = useNavigation();
+  const { homePageLink, navigationLinks: menuLinks, urlPath } = useNavigation();
 
   return (
     <PageTemplate
-      navigationComponent={
+      headerComponent={
         <MenuContainer
-          logoLink={logoLink}
-          menuLinks={menuLinks}
+          homePageLink={homePageLink}
+          navigationLinks={menuLinks}
           urlPath={urlPath}
         />
       }

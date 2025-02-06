@@ -2,13 +2,13 @@ import { useLocation, useNavigate } from 'react-router';
 import { LinkDatum, LinksData } from '../types/linksTypes';
 
 export function useNavigation(): {
-  logoLink: LinkDatum;
+  homePageLink: LinkDatum;
   navigationLinks: LinksData;
   urlPath: string;
 } {
   const navigate = useNavigate();
 
-  const logoLink = {
+  const homePageLink = {
     key: '/',
     label: 'Home',
     navigationCallback: (): void => {
@@ -50,5 +50,9 @@ export function useNavigation(): {
   const location = useLocation();
   const urlPath = location.pathname;
 
-  return { logoLink, navigationLinks: navigationLinks, urlPath };
+  return {
+    homePageLink: homePageLink,
+    navigationLinks: navigationLinks,
+    urlPath,
+  };
 }

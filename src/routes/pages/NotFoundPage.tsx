@@ -1,25 +1,25 @@
 import React from 'react';
-import DataExplorerContainer from '../../containers/DataExplorerContainer';
 import MenuContainer from '../../containers/MenuContainer';
+import NotFoundLayout from '../../ui/layouts/NotFoundLayout';
 import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
 
-function DataExplorerPage(): React.JSX.Element {
-  const { homePageLink, navigationLinks: menuLinks, urlPath } = useNavigation();
+function NotFoundPage(): React.JSX.Element {
+  const { homePageLink, navigationLinks, urlPath } = useNavigation();
 
   return (
     <PageTemplate
       headerComponent={
         <MenuContainer
           homePageLink={homePageLink}
-          navigationLinks={menuLinks}
+          navigationLinks={navigationLinks}
           urlPath={urlPath}
         />
       }
     >
-      <DataExplorerContainer />
+      <NotFoundLayout homePageLink={homePageLink} />
     </PageTemplate>
   );
 }
 
-export default DataExplorerPage;
+export default NotFoundPage;

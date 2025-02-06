@@ -3,22 +3,22 @@ import { LinkDatum, LinksData } from '../types/linksTypes';
 import Menu from '../ui/elements/Menu';
 
 type MenuContainerProps = {
-  logoLink: LinkDatum;
-  menuLinks: LinksData;
+  homePageLink: LinkDatum;
+  navigationLinks: LinksData;
   urlPath: string;
 };
 
 function MenuContainer({
-  logoLink,
-  menuLinks,
+  homePageLink,
+  navigationLinks,
   urlPath,
 }: MenuContainerProps): React.JSX.Element {
   // TODO: Fetch data from profile here
 
   return (
     <Menu
-      logoLink={logoLink}
-      navigationLinks={menuLinks}
+      homePageLink={homePageLink}
+      navigationLinks={navigationLinks}
       currentPath={urlPath}
       userMenu={<div>Profile</div>}
     />

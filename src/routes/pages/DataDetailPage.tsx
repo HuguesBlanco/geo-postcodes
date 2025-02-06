@@ -9,7 +9,7 @@ type PageParameters = {
 };
 
 function DataDetailPage(): React.JSX.Element {
-  const { logoLink, navigationLinks: menuLinks, urlPath } = useNavigation();
+  const { homePageLink, navigationLinks: menuLinks, urlPath } = useNavigation();
   const { id } = useParams<PageParameters>();
 
   if (id === undefined) {
@@ -18,10 +18,10 @@ function DataDetailPage(): React.JSX.Element {
 
   return (
     <PageTemplate
-      navigationComponent={
+      headerComponent={
         <MenuContainer
-          logoLink={logoLink}
-          menuLinks={menuLinks}
+          homePageLink={homePageLink}
+          navigationLinks={menuLinks}
           urlPath={urlPath}
         />
       }
