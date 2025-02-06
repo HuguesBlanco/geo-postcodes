@@ -5,19 +5,19 @@ import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
 
 function DataExplorerPage(): React.JSX.Element {
-  const { homePageLink, navigationLinks: menuLinks, urlPath } = useNavigation();
+  const { homePageLink, navigationLinks, urlPath, visitPage } = useNavigation();
 
   return (
     <PageTemplate
       headerComponent={
         <MenuContainer
           homePageLink={homePageLink}
-          navigationLinks={menuLinks}
+          navigationLinks={navigationLinks}
           urlPath={urlPath}
         />
       }
     >
-      <DataExplorerContainer />
+      <DataExplorerContainer visitPage={visitPage} />
     </PageTemplate>
   );
 }

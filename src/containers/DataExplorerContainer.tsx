@@ -4,7 +4,13 @@ import { Countries } from '../types/countriesTypes';
 import { FetchResult } from '../types/fetchTypes';
 import DataExplorerLayout from '../ui/layouts/DataExplorerLayout';
 
-function DataExplorerContainer(): React.JSX.Element {
+type DataExplorerContainerProps = {
+  visitPage: (urlPath: string) => void;
+};
+
+function DataExplorerContainer({
+  visitPage,
+}: DataExplorerContainerProps): React.JSX.Element {
   const [countriesResult, setCountriesResult] =
     useState<FetchResult<Countries> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -41,6 +47,7 @@ function DataExplorerContainer(): React.JSX.Element {
       <DataExplorerLayout
         countries={countriesResult.data}
         setSearchValue={setSearchValue}
+        visitPage={visitPage}
       />
     );
   }

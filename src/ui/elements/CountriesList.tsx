@@ -4,8 +4,13 @@ import { groupCountriesByContinent } from '../../utils/countriesUtils';
 
 type CountriesListProps = {
   countries: Countries;
+  visitPage: (urlPath: string) => void;
 };
-function CountriesList({ countries }: CountriesListProps): React.JSX.Element {
+
+function CountriesList({
+  countries,
+  visitPage,
+}: CountriesListProps): React.JSX.Element {
   const countriesByContinent = groupCountriesByContinent(countries);
 
   return (
@@ -19,7 +24,15 @@ function CountriesList({ countries }: CountriesListProps): React.JSX.Element {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {continentCountries.map((country) => (
-                  <div key={country.iso}>{country.name}</div>
+                  <div
+                    onClick={() => {
+                      visitPage(country.url);
+                    }}
+                    key={country.iso}
+                    className="text-blue-900 cursor-pointer hover:underline transition-colors duration-200"
+                  >
+                    {country.name}
+                  </div>
                 ))}
               </div>
             </div>
