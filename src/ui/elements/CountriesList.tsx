@@ -1,6 +1,7 @@
 import React from 'react';
 import { Countries } from '../../types/countriesTypes';
 import { groupCountriesByContinent } from '../../utils/countriesUtils';
+import Flag from './FlagIcon';
 
 type CountriesListProps = {
   countries: Countries;
@@ -31,6 +32,9 @@ function CountryList({
                     key={country.iso}
                     className="text-blue-900 cursor-pointer hover:underline transition-colors duration-200"
                   >
+                    <span className="mr-2">
+                      <Flag isoCountryCode={country.iso} />
+                    </span>
                     {country.name}
                   </div>
                 ))}
