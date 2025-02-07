@@ -23,7 +23,7 @@ function DataExplorerLayout({
       </div>
       <div className="flex-1">
         <SearchBar
-          placeholder="Search by postcode, locality, or region"
+          placeholder="Search by name, continent, iso, etc"
           onChange={setSearchValue}
         />
         <DataSummary />

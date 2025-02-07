@@ -43,3 +43,42 @@ export function groupCountriesByContinent(
     {},
   );
 }
+
+function isCountryPropertyMatchingSearchText(
+  countryProperty: Country[keyof Country],
+  searchText: string,
+): boolean {
+  if (typeof countryProperty === 'string') {
+    return countryProperty.toLowerCase().includes(searchText);
+  }
+
+  if (typeof countryProperty === 'number') {
+    return String(countryProperty).includes(searchText);
+  }
+
+  return false;
+}
+
+function isCountryMatchingSearchText(
+  country: Country,
+  searchText: string,
+): boolean {
+  return Object.values(country).some((countryProperty) =>
+    isCountryPropertyMatchingSearchText(countryProperty, searchText),
+  );
+}
+
+export function getMatchingCountries(
+  countries: Countries,
+  searchText: string,
+): Countries {
+  const normalizedSearchText = searchText.trim().toLowerCase();
+
+  if (normalizedSearchText === '') {
+    return countries;
+  }
+
+  return countries.filter((country) =>
+    isCountryMatchingSearchText(country, normalizedSearchText),
+  );
+}

@@ -3,6 +3,7 @@ import { getCountries } from '../services/countriesServices';
 import { Countries } from '../types/countriesTypes';
 import { FetchResult } from '../types/fetchTypes';
 import DataExplorerLayout from '../ui/layouts/DataExplorerLayout';
+import { getMatchingCountries } from '../utils/countriesUtils';
 
 type DataExplorerContainerProps = {
   visitPage: (urlPath: string) => void;
@@ -16,7 +17,11 @@ function DataExplorerContainer({
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [searchValue, setSearchValue] = useState('');
-  console.log(searchValue);
+
+  const filteredCountries =
+    countriesResult?.isSuccess === true
+      ? getMatchingCountries(countriesResult.data, searchValue)
+      : null;
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,10 +47,10 @@ function DataExplorerContainer({
     return <p>Error: {countriesResult.error.message}</p>;
   }
 
-  if (countriesResult?.isSuccess) {
+  if (filteredCountries) {
     return (
       <DataExplorerLayout
-        countries={countriesResult.data}
+        countries={filteredCountries}
         setSearchValue={setSearchValue}
         visitPage={visitPage}
       />

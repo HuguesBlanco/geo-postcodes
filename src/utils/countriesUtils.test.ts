@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Countries, Country } from '../types/countriesTypes';
 import {
+  getMatchingCountries,
   groupCountriesByContinent,
   isCountries,
   isCountry,
@@ -280,5 +281,119 @@ describe('groupCountriesByContinent', () => {
     };
     const actualGroupedCountries = groupCountriesByContinent(initialCountries);
     expect(actualGroupedCountries).toEqual(expectedGroupedCountries);
+  });
+});
+
+describe('getMatchingCountries', () => {
+  const mockCountries: Countries = [
+    {
+      continent: 'North America',
+      iso: 'CA',
+      name: 'Canada',
+      noPostalCode: false,
+      limited: false,
+      notAvailable: false,
+      url: 'Canada',
+      continentCode: 10,
+    },
+    {
+      continent: 'North America',
+      iso: 'US',
+      name: 'United States',
+      noPostalCode: false,
+      limited: false,
+      notAvailable: false,
+      url: 'USA',
+      continentCode: 10,
+    },
+    {
+      continent: 'Western Europe',
+      iso: 'FR',
+      name: 'France',
+      noPostalCode: false,
+      limited: false,
+      notAvailable: false,
+      url: 'France',
+      continentCode: 20,
+    },
+    {
+      continent: 'Asia',
+      iso: 'JP',
+      name: 'Japan',
+      noPostalCode: false,
+      limited: false,
+      notAvailable: false,
+      url: 'Japan',
+      continentCode: 40,
+    },
+  ];
+
+  it('should return all countries when search text is empty', () => {
+    const actualCountries = getMatchingCountries(mockCountries, '');
+    expect(actualCountries).toEqual(mockCountries);
+  });
+
+  it('should return matching country when searching by name', () => {
+    const expectedCountries = [mockCountries[2]];
+    const actualCountries = getMatchingCountries(mockCountries, 'France');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should return matching country when searching by ISO code', () => {
+    const expectedCountries = [mockCountries[3]];
+    const actualCountries = getMatchingCountries(mockCountries, 'JP');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should return matching country when searching by continent', () => {
+    const expectedCountries = [mockCountries[0], mockCountries[1]];
+    const actualCountries = getMatchingCountries(
+      mockCountries,
+      'North America',
+    );
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should return matching country when searching by part of a property (case insensitive)', () => {
+    const expectedCountries = [mockCountries[0]];
+    const actualCountries = getMatchingCountries(mockCountries, 'can');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should return matching country when searching by URL', () => {
+    const expectedCountries = [mockCountries[3]];
+    const actualCountries = getMatchingCountries(mockCountries, 'Japan');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should return matching country when searching by continent code', () => {
+    const expectedCountries = [mockCountries[0], mockCountries[1]];
+    const actualCountries = getMatchingCountries(mockCountries, '10');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should return an empty array when no matches are found', () => {
+    const expectedCountries: Countries = [];
+    const actualCountries = getMatchingCountries(mockCountries, 'xyz');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should not consider boolean values', () => {
+    const expectedCountries: Countries = [];
+    const actualCountries = getMatchingCountries(mockCountries, 'true');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should handle leading and trailing spaces in search text', () => {
+    // TO CORRECT
+    const expectedCountries = [mockCountries[2]];
+    const actualCountries = getMatchingCountries(mockCountries, '  france  ');
+    expect(actualCountries).toEqual(expectedCountries);
+  });
+
+  it('should handle numeric values search', () => {
+    const expectedCountries = [mockCountries[2]];
+    const actualCountries = getMatchingCountries(mockCountries, '20');
+    expect(actualCountries).toEqual(expectedCountries);
   });
 });
