@@ -30,8 +30,8 @@ describe('getCountries', () => {
       ),
     );
 
-    const { countriesResult } = getCountries();
-    const actualResult = await countriesResult;
+    const { result } = getCountries();
+    const actualResult = await result;
     const expectedResult = {
       isSuccess: true,
       data: mockCountries,
@@ -46,8 +46,8 @@ describe('getCountries', () => {
       vi.fn(() => Promise.reject(new Error('Network failure'))),
     );
 
-    const { countriesResult } = getCountries();
-    const actualResult = await countriesResult;
+    const { result } = getCountries();
+    const actualResult = await result;
     const expectedResult = {
       isSuccess: false,
       error: new Error('Network failure'),

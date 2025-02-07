@@ -82,3 +82,7 @@ export function getMatchingCountries(
     isCountryMatchingSearchText(country, normalizedSearchText),
   );
 }
+
+export function getIsoList(countries: Countries): string[] {
+  return countries.map((country) => country.iso);
+}

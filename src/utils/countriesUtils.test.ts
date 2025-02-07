@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Countries, Country } from '../types/countriesTypes';
 import {
+  getIsoList,
   getMatchingCountries,
   groupCountriesByContinent,
   isCountries,
@@ -395,5 +396,98 @@ describe('getMatchingCountries', () => {
     const expectedCountries = [mockCountries[2]];
     const actualCountries = getMatchingCountries(mockCountries, '20');
     expect(actualCountries).toEqual(expectedCountries);
+  });
+});
+
+describe('getIsoList', () => {
+  it('should return an empty array when given an empty list', () => {
+    const initialCountries: Country[] = [];
+    const actualResult = getIsoList(initialCountries);
+    const expectedResult: string[] = [];
+    expect(actualResult).toEqual(expectedResult);
+  });
+
+  it('should return an array of ISO codes when given a list of countries', () => {
+    const initialCountries: Country[] = [
+      {
+        continent: 'Europe',
+        iso: 'FR',
+        name: 'France',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: '',
+        continentCode: 1,
+      },
+      {
+        continent: 'North America',
+        iso: 'US',
+        name: 'United States',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: '',
+        continentCode: 2,
+      },
+      {
+        continent: 'Asia',
+        iso: 'JP',
+        name: 'Japan',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: '',
+        continentCode: 3,
+      },
+    ];
+    const actualResult = getIsoList(initialCountries);
+    const expectedResult = ['FR', 'US', 'JP'];
+    expect(actualResult).toEqual(expectedResult);
+  });
+
+  it('should handle a list with one country correctly', () => {
+    const initialCountries: Country[] = [
+      {
+        continent: 'Oceania',
+        iso: 'AU',
+        name: 'Australia',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: '',
+        continentCode: 4,
+      },
+    ];
+    const actualResult = getIsoList(initialCountries);
+    const expectedResult = ['AU'];
+    expect(actualResult).toEqual(expectedResult);
+  });
+
+  it('should handle a list with countries having different properties correctly', () => {
+    const initialCountries: Country[] = [
+      {
+        continent: 'Europe',
+        iso: 'DE',
+        name: 'Germany',
+        noPostalCode: false,
+        limited: true,
+        notAvailable: false,
+        url: '',
+        continentCode: 1,
+      },
+      {
+        continent: 'South America',
+        iso: 'BR',
+        name: 'Brazil',
+        noPostalCode: true,
+        limited: false,
+        notAvailable: false,
+        url: '',
+        continentCode: 5,
+      },
+    ];
+    const actualResult = getIsoList(initialCountries);
+    const expectedResult = ['DE', 'BR'];
+    expect(actualResult).toEqual(expectedResult);
   });
 });
