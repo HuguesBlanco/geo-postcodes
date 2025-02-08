@@ -20,9 +20,9 @@ function CountryList({
         ([continentName, continentCountries]) => {
           return (
             <div className="mb-8" key={continentName}>
-              <h2 className="border-b-2 border-gray-200 pb-2 mb-4 text-2xl">
+              <h3 className="border-b-1 border-gray-200 pb-2 mb-8 text-2xl">
                 {continentName}
-              </h2>
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {continentCountries.map((country) => (
                   <div

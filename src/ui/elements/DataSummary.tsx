@@ -9,9 +9,9 @@ type DataSummaryProps = {
 function DataSummary({ data }: DataSummaryProps): React.JSX.Element {
   return (
     <div>
-      <h2 className="border-b-2 pb-2">
+      <h3 className="border-b-1 border-gray-200 pb-2">
         <span className="font-black">Dataset</span> content
-      </h2>
+      </h3>
       <ul>
         {data.map((datum, index) => {
           const backgroundColor = isEven(index) ? '' : 'bg-gray-100';

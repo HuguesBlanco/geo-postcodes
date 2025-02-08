@@ -1,4 +1,5 @@
 import React from 'react';
+import { TbWorldSearch } from 'react-icons/tb';
 import { Countries } from '../../types/countriesTypes';
 import { SummaryData } from '../../types/statsTypes';
 import CountryList from '../elements/CountriesList';
@@ -21,17 +22,26 @@ function DataExplorerLayout({
   summaryData,
 }: DataExplorerLayoutProps): React.JSX.Element {
   return (
-    <div className="container mx-auto  flex">
+    <div className="container mx-auto flex gap-32">
       <div className="flex-2">
-        <h1 className="my-6 text-2xl font-black">Data Explorer</h1>
+        <h1 className="mt-8 mb-2 text-2xl font-black">Data Explorer</h1>
+        <div className="flex items-center mb-8">
+          <TbWorldSearch />
+          <h2>
+            Index <span className="text-gray-500">of countries</span>
+          </h2>
+        </div>
         <CountryList countries={countries} visitPage={visitPage} />
       </div>
+
       <div className="flex-1">
-        <SearchBar
-          placeholder="Search by name, continent, iso, etc"
-          value={searchValue}
-          onChange={setSearchValue}
-        />
+        <div className="mt-8 mb-16">
+          <SearchBar
+            placeholder="Search by name, continent, iso, etc"
+            value={searchValue}
+            onChange={setSearchValue}
+          />
+        </div>
         <DataSummary data={summaryData} />
       </div>
     </div>
