@@ -5,7 +5,7 @@ import { User } from '../types/userTypes';
 import UserAvatar from '../ui/elements/UserAvatar';
 
 function UserAvatarContainer(): React.JSX.Element {
-  const [userInfo, setUserInfo] = useState<null | FetchResult<User>>(null);
+  const [userResult, setUserInfo] = useState<null | FetchResult<User>>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -24,19 +24,13 @@ function UserAvatarContainer(): React.JSX.Element {
     return abort;
   }, []);
 
-  const { userEmail, organizationName, avatarURL } =
+  const userInfo =
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-boolean-literal-compare
-    !isLoading && userInfo && userInfo.isSuccess === true
-      ? userInfo.data
+    !isLoading && userResult && userResult.isSuccess === true
+      ? userResult.data
       : { userEmail: '', organizationName: '', avatarURL: null };
 
-  return (
-    <UserAvatar
-      userEmail={userEmail}
-      organizationName={organizationName}
-      avatarURL={avatarURL}
-    />
-  );
+  return <UserAvatar userInfo={userInfo} />;
 }
 
 export default UserAvatarContainer;
