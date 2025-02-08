@@ -90,6 +90,7 @@ function DataExplorerContainer({
     return (
       <DataExplorerLayout
         countries={filteredCountries}
+        searchValue={searchValue}
         setSearchValue={setSearchValue}
         visitPage={visitPage}
         summaryData={summaryData.data}

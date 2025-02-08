@@ -8,6 +8,7 @@ import SearchBar from '../elements/SearchBar';
 type DataExplorerLayoutProps = {
   countries: Countries;
   visitPage: (urlPath: string) => void;
+  searchValue: string;
   setSearchValue: (searchedValue: string) => void;
   summaryData: SummaryData;
 };
@@ -15,6 +16,7 @@ type DataExplorerLayoutProps = {
 function DataExplorerLayout({
   countries,
   visitPage,
+  searchValue,
   setSearchValue,
   summaryData,
 }: DataExplorerLayoutProps): React.JSX.Element {
@@ -27,6 +29,7 @@ function DataExplorerLayout({
       <div className="flex-1">
         <SearchBar
           placeholder="Search by name, continent, iso, etc"
+          value={searchValue}
           onChange={setSearchValue}
         />
         <DataSummary data={summaryData} />
