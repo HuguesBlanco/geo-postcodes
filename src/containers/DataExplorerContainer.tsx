@@ -32,10 +32,6 @@ function DataExplorerContainer({
     useState<FetchResult<SummaryData> | null>(null);
   const [isSummaryLoading, setIsSummaryLoading] = useState(true);
 
-  // TEMP
-  console.log('isSummaryLoading', isSummaryLoading);
-  console.log('summaryData', summaryData);
-
   useEffect(() => {
     setIsLoading(true);
 
