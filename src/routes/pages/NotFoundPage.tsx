@@ -1,5 +1,6 @@
 import React from 'react';
-import MenuContainer from '../../containers/MenuContainer';
+import UserAvatarContainer from '../../containers/UserAvatarContainer';
+import Menu from '../../ui/elements/Menu';
 import NotFoundLayout from '../../ui/layouts/NotFoundLayout';
 import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
@@ -10,10 +11,11 @@ function NotFoundPage(): React.JSX.Element {
   return (
     <PageTemplate
       headerComponent={
-        <MenuContainer
+        <Menu
           homePageLink={homePageLink}
           navigationLinks={navigationLinks}
-          urlPath={urlPath}
+          currentPath={urlPath}
+          userMenu={<UserAvatarContainer />}
         />
       }
     >

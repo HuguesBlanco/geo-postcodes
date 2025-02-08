@@ -1,6 +1,7 @@
 import React from 'react';
 import DataExplorerContainer from '../../containers/DataExplorerContainer';
-import MenuContainer from '../../containers/MenuContainer';
+import UserAvatarContainer from '../../containers/UserAvatarContainer';
+import Menu from '../../ui/elements/Menu';
 import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
 
@@ -10,10 +11,11 @@ function DataExplorerPage(): React.JSX.Element {
   return (
     <PageTemplate
       headerComponent={
-        <MenuContainer
+        <Menu
           homePageLink={homePageLink}
           navigationLinks={navigationLinks}
-          urlPath={urlPath}
+          currentPath={urlPath}
+          userMenu={<UserAvatarContainer />}
         />
       }
     >

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import MenuContainer from '../../containers/MenuContainer';
+import UserAvatarContainer from '../../containers/UserAvatarContainer';
+import Menu from '../../ui/elements/Menu';
 import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
 
@@ -9,7 +10,7 @@ type PageParameters = {
 };
 
 function DataDetailPage(): React.JSX.Element {
-  const { homePageLink, navigationLinks: menuLinks, urlPath } = useNavigation();
+  const { homePageLink, navigationLinks, urlPath } = useNavigation();
   const { id } = useParams<PageParameters>();
 
   if (id === undefined) {
@@ -19,10 +20,11 @@ function DataDetailPage(): React.JSX.Element {
   return (
     <PageTemplate
       headerComponent={
-        <MenuContainer
+        <Menu
           homePageLink={homePageLink}
-          navigationLinks={menuLinks}
-          urlPath={urlPath}
+          navigationLinks={navigationLinks}
+          currentPath={urlPath}
+          userMenu={<UserAvatarContainer />}
         />
       }
     >

@@ -1,23 +1,25 @@
 import React from 'react';
-import HomeContainer from '../../containers/HomeContainer';
-import MenuContainer from '../../containers/MenuContainer';
+import UserAvatarContainer from '../../containers/UserAvatarContainer';
+import Menu from '../../ui/elements/Menu';
+import HomeLayout from '../../ui/layouts/HomeLayout';
 import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
 
 function HomePage(): React.JSX.Element {
-  const { homePageLink, navigationLinks: menuLinks, urlPath } = useNavigation();
+  const { homePageLink, navigationLinks, urlPath } = useNavigation();
 
   return (
     <PageTemplate
       headerComponent={
-        <MenuContainer
+        <Menu
           homePageLink={homePageLink}
-          navigationLinks={menuLinks}
-          urlPath={urlPath}
+          navigationLinks={navigationLinks}
+          currentPath={urlPath}
+          userMenu={<UserAvatarContainer />}
         />
       }
     >
-      <HomeContainer />
+      <HomeLayout links={navigationLinks} />
     </PageTemplate>
   );
 }
