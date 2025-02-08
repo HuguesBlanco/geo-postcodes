@@ -73,7 +73,7 @@ function DataExplorerContainer({
     return undefined;
   }, [filteredCountries, searchValue]);
 
-  if (isLoading) {
+  if (isLoading || isSummaryLoading) {
     return <p>Loading...</p>;
   }
 
@@ -81,12 +81,18 @@ function DataExplorerContainer({
     return <p>Error: {countriesResult.error.message}</p>;
   }
 
-  if (filteredCountries) {
+  if (
+    filteredCountries &&
+    // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+    summaryData &&
+    summaryData.isSuccess
+  ) {
     return (
       <DataExplorerLayout
         countries={filteredCountries}
         setSearchValue={setSearchValue}
         visitPage={visitPage}
+        summaryData={summaryData.data}
       />
     );
   }

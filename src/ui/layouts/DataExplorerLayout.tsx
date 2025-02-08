@@ -1,5 +1,6 @@
 import React from 'react';
 import { Countries } from '../../types/countriesTypes';
+import { SummaryData } from '../../types/statsTypes';
 import CountryList from '../elements/CountriesList';
 import DataSummary from '../elements/DataSummary';
 import SearchBar from '../elements/SearchBar';
@@ -8,12 +9,14 @@ type DataExplorerLayoutProps = {
   countries: Countries;
   visitPage: (urlPath: string) => void;
   setSearchValue: (searchedValue: string) => void;
+  summaryData: SummaryData;
 };
 
 function DataExplorerLayout({
   countries,
   visitPage,
   setSearchValue,
+  summaryData,
 }: DataExplorerLayoutProps): React.JSX.Element {
   return (
     <div className="container mx-auto  flex">
@@ -26,7 +29,7 @@ function DataExplorerLayout({
           placeholder="Search by name, continent, iso, etc"
           onChange={setSearchValue}
         />
-        <DataSummary />
+        <DataSummary data={summaryData} />
       </div>
     </div>
   );
