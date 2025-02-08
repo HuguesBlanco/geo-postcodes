@@ -1,6 +1,7 @@
 import React from 'react';
 import { LinkDatum, LinksData } from '../types/linksTypes';
 import Menu from '../ui/elements/Menu';
+import UserAvatarContainer from './UserAvatarContainer';
 
 type MenuContainerProps = {
   homePageLink: LinkDatum;
@@ -13,14 +14,12 @@ function MenuContainer({
   navigationLinks,
   urlPath,
 }: MenuContainerProps): React.JSX.Element {
-  // TODO: Fetch data from profile here
-
   return (
     <Menu
       homePageLink={homePageLink}
       navigationLinks={navigationLinks}
       currentPath={urlPath}
-      userMenu={<div>Profile</div>}
+      userMenu={<UserAvatarContainer />}
     />
   );
 }
