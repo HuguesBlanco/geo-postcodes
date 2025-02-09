@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import UserAvatarContainer from '../../containers/UserAvatarContainer';
 import Menu from '../../ui/elements/Menu';
+import DataDetailLayout from '../../ui/layouts/DataDetailLayout';
 import PageTemplate from '../../ui/templates/PageTemplate';
 import { useNavigation } from '../useNavigation';
 
@@ -28,7 +29,7 @@ function DataDetailPage(): React.JSX.Element {
         />
       }
     >
-      <div>Detail</div>
+      <DataDetailLayout />
     </PageTemplate>
   );
 }
