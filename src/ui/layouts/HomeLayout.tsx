@@ -5,31 +5,15 @@ import knowledgeBaseImagePath from '../../assets/kb.svg';
 import backgroundImagePath from '../../assets/main_background.webp';
 import mapExplorerImagePath from '../../assets/map_explorer.webp';
 import { LinksData } from '../../types/linksTypes';
-import Card, { CardBackgroundInfo } from '../elements/Card';
 
 type HomeLayoutProps = {
   links: LinksData;
 };
 
 function HomeLayout({ links }: HomeLayoutProps): React.JSX.Element {
-  const cardBackgrounds: CardBackgroundInfo[] = [
-    {
-      imagePath: dataExplorerImagePath,
-      tailwindClasses: 'bg-[25rem_auto] bg-[right_-5rem_bottom_-5rem]',
-    },
-    {
-      imagePath: mapExplorerImagePath,
-      tailwindClasses: 'bg-[15rem_auto] bg-[right_0rem_bottom_0rem]',
-    },
-    {
-      imagePath: downloadCenterImagePath,
-      tailwindClasses: 'bg-[6rem_auto] bg-[right_3rem_bottom_1.5rem]',
-    },
-    {
-      imagePath: knowledgeBaseImagePath,
-      tailwindClasses: 'bg-[7rem_auto] bg-[right_2rem_bottom_2rem]',
-    },
-  ];
+  const cardStyleBasis =
+    'cursor-pointer rounded-lg shadow-md p-6 hover:shadow-lg transition-all w-96 h-36 bg-blue-100 bg-no-repeat';
+  const cardTextClasses = 'font-black text-blue-900';
 
   return (
     <div className="flex flex-col flex-1 bg-cover bg-center bg-no-repeat">
@@ -39,13 +23,41 @@ function HomeLayout({ links }: HomeLayoutProps): React.JSX.Element {
 
       <div className="max-w-4xl mx-auto px-4">
         <div className="grid grid-cols-2 gap-8 justify-items-center">
-          {links.map((link, index) => (
-            <Card
-              key={link.path}
-              link={link}
-              backgroundInfo={cardBackgrounds[index] ?? null}
-            />
-          ))}
+          {/* Data Explorer card */}
+          <div
+            onClick={links[0]?.visit}
+            className={`${cardStyleBasis} bg-[25rem_auto] bg-[right_-5rem_bottom_-5rem]`}
+            style={{ backgroundImage: `url(${dataExplorerImagePath})` }}
+          >
+            <p className={cardTextClasses}>{links[0]?.label}</p>
+          </div>
+
+          {/* Map Explorer card */}
+          <div
+            onClick={links[1]?.visit}
+            className={`${cardStyleBasis} bg-[15rem_auto] bg-[right_0rem_bottom_0rem]`}
+            style={{ backgroundImage: `url(${mapExplorerImagePath})` }}
+          >
+            <p className={cardTextClasses}>{links[1]?.label}</p>
+          </div>
+
+          {/* Download Center card */}
+          <div
+            onClick={links[2]?.visit}
+            className={`${cardStyleBasis} bg-[6rem_auto] bg-[right_3rem_bottom_1.5rem]`}
+            style={{ backgroundImage: `url(${downloadCenterImagePath})` }}
+          >
+            <p className={cardTextClasses}>{links[2]?.label}</p>
+          </div>
+
+          {/* Knowledge Base card */}
+          <div
+            onClick={links[3]?.visit}
+            className={`${cardStyleBasis} bg-[7rem_auto] bg-[right_2rem_bottom_2rem]`}
+            style={{ backgroundImage: `url(${knowledgeBaseImagePath})` }}
+          >
+            <p className={cardTextClasses}>{links[3]?.label}</p>
+          </div>
         </div>
       </div>
 
