@@ -13,7 +13,7 @@ type DataExplorerContainerProps = {
 
 function DataExplorerContainer({
   visitPage,
-}: DataExplorerContainerProps): React.JSX.Element {
+}: DataExplorerContainerProps): React.JSX.Element | null {
   const [searchValue, setSearchValue] = useState('');
 
   const {
@@ -41,7 +41,7 @@ function DataExplorerContainer({
   });
 
   if (isCountriesLoading) {
-    return <p>Full container loading...</p>;
+    return null;
   }
 
   if (countriesError) {
