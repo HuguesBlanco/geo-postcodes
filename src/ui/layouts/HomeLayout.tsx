@@ -16,7 +16,7 @@ function HomeLayout({ links }: HomeLayoutProps): React.JSX.Element {
   const cardTextClasses = 'font-black text-blue-900';
 
   return (
-    <div className="flex flex-col flex-1 bg-cover bg-center bg-no-repeat">
+    <div className="flex flex-col flex-1">
       <h1 className="text-center my-24 text-2xl font-black text-blue-900">
         Welcome to GeoPostcodes&apos; Customer Portal
       </h1>
