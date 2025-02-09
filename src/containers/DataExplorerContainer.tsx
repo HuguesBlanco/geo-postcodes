@@ -3,8 +3,10 @@ import React, { useMemo, useState } from 'react';
 import { fetchCountries } from '../services/countriesServices';
 import { fetchCountriesStatistics } from '../services/countriesStatsServices';
 import { Countries } from '../types/countriesTypes';
+import { LinkDatum } from '../types/linksTypes';
 import { SummaryData } from '../types/statsTypes';
 import DataExplorerLayout from '../ui/layouts/DataExplorerLayout';
+import ErrorLayout from '../ui/layouts/ErrorLayout';
 import { getIsoList, getMatchingCountries } from '../utils/countriesUtils';
 
 type DataExplorerContainerProps = {
@@ -44,11 +46,23 @@ function DataExplorerContainer({
     return null;
   }
 
-  if (countriesError) {
-    return <p>Error fetching countries: {countriesError.message}</p>;
-  }
-  if (summaryError) {
-    return <p>Error fetching summary data: {summaryError.message}</p>;
+  if (countriesError || summaryError) {
+    const homePageLink: LinkDatum = {
+      path: '/',
+      label: 'Home page',
+      visit: () => {
+        visitPage('/');
+      },
+    };
+
+    if (countriesError)
+      return (
+        <ErrorLayout error={countriesError} redirectionLink={homePageLink} />
+      );
+    if (summaryError)
+      return (
+        <ErrorLayout error={summaryError} redirectionLink={homePageLink} />
+      );
   }
 
   return (
