@@ -11,9 +11,36 @@ type HomeLayoutProps = {
 };
 
 function HomeLayout({ links }: HomeLayoutProps): React.JSX.Element {
-  const cardStyleBasis =
-    'cursor-pointer rounded-lg shadow-md p-6 hover:shadow-lg transition-all w-96 h-36 bg-blue-100 bg-no-repeat';
-  const cardTextClasses = 'font-black text-blue-900';
+  const cards = [
+    {
+      link: links[0]?.visit,
+      label: links[0]?.label,
+      image: dataExplorerImagePath,
+      backgroundSize: 'bg-[25rem_auto]',
+      backgroundPosition: 'bg-[right_-5rem_bottom_-5rem]',
+    },
+    {
+      link: links[1]?.visit,
+      label: links[1]?.label,
+      image: mapExplorerImagePath,
+      backgroundSize: 'bg-[15rem_auto]',
+      backgroundPosition: 'bg-[right_0rem_bottom_0rem]',
+    },
+    {
+      link: links[2]?.visit,
+      label: links[2]?.label,
+      image: downloadCenterImagePath,
+      backgroundSize: 'bg-[6rem_auto]',
+      backgroundPosition: 'bg-[right_3rem_bottom_1.5rem]',
+    },
+    {
+      link: links[3]?.visit,
+      label: links[3]?.label,
+      image: knowledgeBaseImagePath,
+      backgroundSize: 'bg-[7rem_auto]',
+      backgroundPosition: 'bg-[right_2rem_bottom_2rem]',
+    },
+  ];
 
   return (
     <div className="flex flex-col flex-1">
@@ -21,43 +48,18 @@ function HomeLayout({ links }: HomeLayoutProps): React.JSX.Element {
         Welcome to GeoPostcodes&apos; Customer Portal
       </h1>
 
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="grid grid-cols-2 gap-8 justify-items-center">
-          {/* Data Explorer card */}
-          <div
-            onClick={links[0]?.visit}
-            className={`${cardStyleBasis} bg-[25rem_auto] bg-[right_-5rem_bottom_-5rem]`}
-            style={{ backgroundImage: `url(${dataExplorerImagePath})` }}
-          >
-            <p className={cardTextClasses}>{links[0]?.label}</p>
-          </div>
-
-          {/* Map Explorer card */}
-          <div
-            onClick={links[1]?.visit}
-            className={`${cardStyleBasis} bg-[15rem_auto] bg-[right_0rem_bottom_0rem]`}
-            style={{ backgroundImage: `url(${mapExplorerImagePath})` }}
-          >
-            <p className={cardTextClasses}>{links[1]?.label}</p>
-          </div>
-
-          {/* Download Center card */}
-          <div
-            onClick={links[2]?.visit}
-            className={`${cardStyleBasis} bg-[6rem_auto] bg-[right_3rem_bottom_1.5rem]`}
-            style={{ backgroundImage: `url(${downloadCenterImagePath})` }}
-          >
-            <p className={cardTextClasses}>{links[2]?.label}</p>
-          </div>
-
-          {/* Knowledge Base card */}
-          <div
-            onClick={links[3]?.visit}
-            className={`${cardStyleBasis} bg-[7rem_auto] bg-[right_2rem_bottom_2rem]`}
-            style={{ backgroundImage: `url(${knowledgeBaseImagePath})` }}
-          >
-            <p className={cardTextClasses}>{links[3]?.label}</p>
-          </div>
+      <div className="px-4">
+        <div className="container grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center max-w-4xl mx-auto">
+          {cards.map((card, index) => (
+            <div
+              key={index}
+              onClick={card.link}
+              className={`cursor-pointer rounded-lg shadow-md p-6 hover:shadow-lg transition-all w-full h-36 bg-blue-100 bg-no-repeat ${card.backgroundSize} ${card.backgroundPosition}`}
+              style={{ backgroundImage: `url(${card.image})` }}
+            >
+              <p className="font-black text-blue-900">{card.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 
