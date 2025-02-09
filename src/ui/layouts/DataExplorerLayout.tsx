@@ -22,27 +22,35 @@ function DataExplorerLayout({
   summaryData,
 }: DataExplorerLayoutProps): React.JSX.Element {
   return (
-    <div className="container mx-auto flex gap-32">
-      <div className="flex-2">
-        <h1 className="mt-8 mb-2 text-2xl font-black">Data Explorer</h1>
-        <div className="flex items-center mb-8">
-          <TbWorldSearch />
-          <h2>
-            Index <span className="text-gray-500">of countries</span>
-          </h2>
+    <div className="container mx-auto px-4">
+      {/* First row: Title and SearchBar */}
+      <div className="flex flex-col xl:flex-row gap-x-32 xl:mb-4">
+        <div className="basis-full xl:basis-2/3 flex flex-row xl:flex-col content-end gap-x-4 my-8">
+          <h1 className="text-2xl font-black mb-1">Data Explorer</h1>
+          <div className="flex items-center">
+            <TbWorldSearch />
+            <h2 className="ml-2">
+              Index <span className="text-gray-500">of countries</span>
+            </h2>
+          </div>
         </div>
-        <CountryList countries={countries} visitPage={visitPage} />
-      </div>
-
-      <div className="flex-1">
-        <div className="mt-8 mb-16">
+        <div className="basis-full xl:basis-1/3 mb-8 xl:mt-12">
           <SearchBar
             placeholder="Search by name, continent, iso, etc"
             value={searchValue}
             onChange={setSearchValue}
           />
         </div>
-        <DataSummary data={summaryData} />
+      </div>
+
+      {/* Second row: DataSummary and CountryList */}
+      <div className="flex flex-col xl:flex-row-reverse gap-x-32">
+        <div className="basis-full xl:basis-1/3 mb-8 xl:mt-1">
+          <DataSummary data={summaryData} />
+        </div>
+        <div className="basis-full xl:basis-2/3">
+          <CountryList countries={countries} visitPage={visitPage} />
+        </div>
       </div>
     </div>
   );
