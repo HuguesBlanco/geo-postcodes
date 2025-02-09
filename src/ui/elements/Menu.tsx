@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import geoPostcodeLogo from '../../assets/Geopostcodes-logo-header.svg';
 import { LinkDatum, LinksData } from '../../types/linksTypes';
-import DesktopMenu from './MenuDesktop';
-import MobileMenu from './MenuMobile';
+import MenuDesktop from './MenuDesktop';
+import MenuMobile from './MenuMobile';
 
 type MenuProps = {
   homePageLink: LinkDatum;
@@ -51,7 +51,7 @@ function Menu({
 
         {/* Desktop Navigation */}
         <div className="hidden xl:block">
-          <DesktopMenu
+          <MenuDesktop
             navigationLinks={navigationLinks}
             currentPath={currentPath}
           />
@@ -62,7 +62,7 @@ function Menu({
       </div>
 
       {/* Mobile Navigation (Overlay & Sidebar) */}
-      <MobileMenu
+      <MenuMobile
         navigationLinks={navigationLinks}
         userMenu={userMenu}
         isMenuOpen={isMenuOpen}

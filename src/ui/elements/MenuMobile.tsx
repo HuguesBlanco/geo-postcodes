@@ -1,19 +1,19 @@
 import React from 'react';
 import { LinksData } from '../../types/linksTypes';
 
-type MobileMenuProps = {
+type MenuMobileProps = {
   navigationLinks: LinksData;
   userMenu?: React.ReactNode;
   isMenuOpen: boolean;
   closeMenu: () => void;
 };
 
-function MobileMenu({
+function MenuMobile({
   navigationLinks,
   userMenu,
   isMenuOpen,
   closeMenu,
-}: MobileMenuProps): React.ReactElement {
+}: MenuMobileProps): React.ReactElement {
   return (
     <>
       {/* Semi-Transparent Background Overlay */}
@@ -31,7 +31,7 @@ function MobileMenu({
         } transition-transform duration-300 ease-in-out`}
       >
         {/* User Menu */}
-        <div className="bg-blue-950 py-10 px-5">{userMenu}</div>
+        <div className="bg-blue-950 pt-12 pb-8 px-8">{userMenu}</div>
 
         {/* Menu Items */}
         <ul className="text-white">
@@ -42,7 +42,7 @@ function MobileMenu({
                   link.visit();
                   closeMenu();
                 }}
-                className="block w-full text-left text-lg py-8 p-5 hover:bg-blue-700"
+                className="block w-full text-left text-lg py-8 px-8 hover:bg-blue-700"
               >
                 {link.label}
               </button>
@@ -54,4 +54,4 @@ function MobileMenu({
   );
 }
 
-export default MobileMenu;
+export default MenuMobile;

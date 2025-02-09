@@ -1,15 +1,15 @@
 import React from 'react';
 import { LinksData } from '../../types/linksTypes';
 
-type DesktopMenuProps = {
+type MenuDesktopProps = {
   navigationLinks: LinksData;
   currentPath: string;
 };
 
-function DesktopMenu({
+function MenuDesktop({
   navigationLinks,
   currentPath,
-}: DesktopMenuProps): React.ReactElement {
+}: MenuDesktopProps): React.ReactElement {
   return (
     <ul className="flex space-x-6">
       {navigationLinks.map((link) => {
@@ -35,4 +35,4 @@ function DesktopMenu({
   );
 }
 
-export default DesktopMenu;
+export default MenuDesktop;
