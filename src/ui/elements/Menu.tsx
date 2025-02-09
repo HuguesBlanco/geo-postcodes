@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FiMenu, FiX } from 'react-icons/fi';
 import geoPostcodeLogo from '../../assets/Geopostcodes-logo-header.svg';
 import { LinkDatum, LinksData } from '../../types/linksTypes';
+import DesktopMenu from './MenuDesktop';
+import MobileMenu from './MenuMobile';
 
 type MenuProps = {
   homePageLink: LinkDatum;
@@ -15,41 +18,58 @@ function Menu({
   currentPath,
   userMenu,
 }: MenuProps): React.ReactElement {
-  return (
-    <nav className="bg-blue-900">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-6">
-          <button onClick={homePageLink.visit} className="focus:outline-none">
-            <img
-              src={geoPostcodeLogo}
-              alt="GeoPostcodes Logo"
-              className="h-8"
-            />
-          </button>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-          <ul className="flex space-x-6">
-            {navigationLinks.map((link) => {
-              const isActive = currentPath === link.path;
-              return (
-                <li key={link.path}>
-                  <button
-                    onClick={link.visit}
-                    className={`text-white p-4 block transition-colors duration-200 focus:outline-none ${
-                      isActive
-                        ? 'border-b-4 border-blue-300'
-                        : 'border-b-4 border-blue-900 hover:text-blue-200'
-                    }`}
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+  const toggleMenu = (): void => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <nav className="bg-blue-900 relative">
+      <div className="container mx-auto flex items-center justify-between">
+        {/* Logo */}
+        <button
+          onClick={() => {
+            homePageLink.visit();
+          }}
+          className="p-4"
+        >
+          <img src={geoPostcodeLogo} alt="GeoPostcodes Logo" className="h-8" />
+        </button>
+
+        {/* Toggle Button (Hamburger or Close Icon) */}
+        <button
+          className="xl:hidden text-white p-5 relative z-50"
+          onClick={toggleMenu}
+        >
+          {isMenuOpen ? (
+            <FiX className="w-6 h-6" />
+          ) : (
+            <FiMenu className="w-6 h-6" />
+          )}
+        </button>
+
+        {/* Desktop Navigation */}
+        <div className="hidden xl:block">
+          <DesktopMenu
+            navigationLinks={navigationLinks}
+            currentPath={currentPath}
+          />
         </div>
 
-        <div className="text-white">{userMenu}</div>
+        {/* User Menu for Desktop */}
+        <div className="hidden xl:block text-white px-5">{userMenu}</div>
       </div>
+
+      {/* Mobile Navigation (Overlay & Sidebar) */}
+      <MobileMenu
+        navigationLinks={navigationLinks}
+        userMenu={userMenu}
+        isMenuOpen={isMenuOpen}
+        closeMenu={() => {
+          setIsMenuOpen(false);
+        }}
+      />
     </nav>
   );
 }
