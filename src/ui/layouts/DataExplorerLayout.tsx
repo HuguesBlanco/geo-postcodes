@@ -11,6 +11,7 @@ type DataExplorerLayoutProps = {
   visitPage: (urlPath: string) => void;
   searchValue: string;
   setSearchValue: (searchedValue: string) => void;
+  isSummaryDataFetching: boolean;
   summaryData: SummaryData;
 };
 
@@ -19,6 +20,7 @@ function DataExplorerLayout({
   visitPage,
   searchValue,
   setSearchValue,
+  isSummaryDataFetching,
   summaryData,
 }: DataExplorerLayoutProps): React.JSX.Element {
   return (
@@ -45,8 +47,11 @@ function DataExplorerLayout({
 
       {/* Second row: DataSummary and CountryList */}
       <div className="flex flex-col xl:flex-row-reverse gap-x-32">
-        <div className="basis-full xl:basis-1/3 mb-8 xl:mt-1">
-          <DataSummary data={summaryData} />
+        <div className="basis-full xl:basis-1/3 mb-6 xl:mt-1">
+          <DataSummary
+            isDataFetching={isSummaryDataFetching}
+            data={summaryData}
+          />
         </div>
         <div className="basis-full xl:basis-2/3">
           <CountryList countries={countries} visitPage={visitPage} />

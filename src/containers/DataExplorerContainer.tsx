@@ -31,12 +31,13 @@ function DataExplorerContainer({
 
   const {
     data: summaryData,
-    isPending: isSummaryDataPending,
+    isFetching: isSummaryDataFetching,
     error: summaryError,
   } = useQuery<SummaryData>({
     queryKey: ['summary', filteredCountries.map((country) => country.iso)],
     queryFn: () => fetchCountriesStatistics(getIsoList(filteredCountries)),
     enabled: filteredCountries.length > 0,
+    initialData: [],
   });
 
   if (isCountriesLoading) {
@@ -50,15 +51,14 @@ function DataExplorerContainer({
     return <p>Error fetching summary data: {summaryError.message}</p>;
   }
 
-  console.log(isSummaryDataPending); // Temp before resolving comment below
-
   return (
     <DataExplorerLayout
       countries={filteredCountries}
       searchValue={searchValue}
       setSearchValue={setSearchValue}
       visitPage={visitPage}
-      summaryData={summaryData ?? []} // TODO: handle the case when data are pending and when there is an error while fetching
+      isSummaryDataFetching={isSummaryDataFetching}
+      summaryData={summaryData}
     />
   );
 }
