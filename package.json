@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.3",
+    "@tanstack/react-query": "^5.66.0",
     "flag-icons": "^7.3.2",
     "prettier": "^3.4.2",
     "react": "^18.3.1",

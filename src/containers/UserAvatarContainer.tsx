@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { getUserInfo } from '../services/UserServices';
-import { FetchResult } from '../types/fetchTypes';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+import { fetchUserInfo } from '../services/userServices';
 import { User } from '../types/userTypes';
 import UserAvatar from '../ui/elements/UserAvatar';
 
 function UserAvatarContainer(): React.JSX.Element {
-  const [userResult, setUserInfo] = useState<null | FetchResult<User>>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: userInfo,
+    isLoading,
+    error,
+  } = useQuery<User>({
+    queryKey: ['userInfo'],
+    queryFn: fetchUserInfo,
+  });
 
-  useEffect(() => {
-    setIsLoading(true);
+  // TODO: implement proper handling of errors and loading.
 
-    const { result: userResult, abort } = getUserInfo();
+  if (isLoading) {
+    return <p>Loading user information...</p>;
+  }
 
-    void userResult
-      .then((result) => {
-        setUserInfo(result);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+  if (error) {
+    return <p>Error fetching user information: {error.message}</p>;
+  }
 
-    return abort;
-  }, []);
+  const fallbackUserInfo: User = {
+    userEmail: '',
+    organizationName: '',
+    avatarURL: null,
+  };
 
-  const userInfo =
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-boolean-literal-compare
-    !isLoading && userResult && userResult.isSuccess === true
-      ? userResult.data
-      : { userEmail: '', organizationName: '', avatarURL: null };
-
-  return <UserAvatar userInfo={userInfo} />;
+  return <UserAvatar userInfo={userInfo ?? fallbackUserInfo} />;
 }
 
 export default UserAvatarContainer;

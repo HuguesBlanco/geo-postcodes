@@ -1,29 +1,22 @@
 import { Countries } from '../types/countriesTypes';
-import { ServiceReturn } from '../types/fetchTypes';
 import { isCountries } from '../utils/countriesUtils';
-import {
-  normalizeFetchError,
-  parseFetchResponse,
-  validateData,
-} from '../utils/fetchUtils';
 
-export function getCountries(): ServiceReturn<Countries> {
-  const controller = new AbortController();
-
-  const countriesResult = fetch(
+export async function fetchCountries(): Promise<Countries> {
+  const response = await fetch(
     'https://raw.githubusercontent.com/GeoPostcodes/technical-test/main/front-end/data/countries.json',
-    { signal: controller.signal },
-  )
-    .then(parseFetchResponse)
-    .then((result) =>
-      result.isSuccess ? validateData(result.data, isCountries) : result,
-    )
-    .catch(normalizeFetchError);
+  );
 
-  return {
-    result: countriesResult,
-    abort: (): void => {
-      controller.abort();
-    },
-  };
+  if (!response.ok) {
+    const errorStatrus = String(response.status);
+    const errorMessage = response.statusText;
+    throw new Error(`Error ${errorStatrus}: ${errorMessage}`);
+  }
+
+  const data: unknown = await response.json();
+
+  if (!isCountries(data)) {
+    throw new Error('Invalid data structure for countries');
+  }
+
+  return data;
 }

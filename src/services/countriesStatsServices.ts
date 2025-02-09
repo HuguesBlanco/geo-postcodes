@@ -1,32 +1,19 @@
-import { FetchResult, ServiceReturn } from '../types/fetchTypes';
 import { SummaryData } from '../types/statsTypes';
 
-export function getCountriesStats(
+export async function fetchCountriesStatistics(
   isoCountryList: string[],
-): ServiceReturn<SummaryData> {
-  // This function mock the fetching of statistic data about countries.
+): Promise<SummaryData> {
+  const numberOfCountries: number = isoCountryList.length;
 
-  const countryCount = isoCountryList.length;
-
-  const mockedSummaryData: SummaryData = [
-    { label: 'Countries', value: countryCount },
-    { label: 'Administrative Regions', value: countryCount * 549 },
-    { label: 'Streets', value: countryCount * 178_238 },
-    { label: 'Businesses & admin', value: countryCount * 8_917 },
+  const fakeSummaryData: SummaryData = [
+    { label: 'Countries', value: numberOfCountries },
+    { label: 'Administrative Regions', value: numberOfCountries * 549 },
+    { label: 'Streets', value: numberOfCountries * 178238 },
+    { label: 'Businesses & admin', value: numberOfCountries * 8917 },
   ];
 
-  const fakeResult = new Promise<FetchResult<SummaryData>>((resolve) => {
-    setTimeout(() => {
-      resolve({
-        isSuccess: true,
-        data: mockedSummaryData,
-      });
-    }, 500);
-  });
+  // Simulate network delay.
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-  const abortFakely = (): void => {
-    console.log('Countries statistic fetch aborted');
-  };
-
-  return { result: fakeResult, abort: abortFakely };
+  return fakeSummaryData;
 }

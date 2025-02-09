@@ -1,76 +1,113 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Countries } from '../types/countriesTypes';
-import { getCountries } from './countriesServices';
+import { fetchCountries } from './countriesServices';
 
-const mockCountries: Countries = [
-  {
-    continent: 'Europe',
-    iso: 'FR',
-    name: 'France',
-    noPostalCode: false,
-    limited: false,
-    notAvailable: false,
-    url: 'https://example.com/france',
-    continentCode: 1,
-  },
-];
-
-describe('getCountries', () => {
+describe('fetchCountries', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
 
-  it('should resolve with success when fetching and validating countries succeeds', async () => {
+  it('should return valid country data when the API call is successful', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn(() =>
-        Promise.resolve(
-          new Response(JSON.stringify(mockCountries), { status: 200 }),
-        ),
-      ),
+      () =>
+        Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockCountries),
+        }) as unknown as Promise<Response>,
     );
 
-    const { result } = getCountries();
-    const actualResult = await result;
-    const expectedResult = {
-      isSuccess: true,
-      data: mockCountries,
-    };
+    const mockCountries: Countries = [
+      {
+        continent: 'North America',
+        iso: 'CA',
+        name: 'Canada',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'Canada',
+        continentCode: 10,
+      },
+      {
+        continent: 'North America',
+        iso: 'MX',
+        name: 'Mexico',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'Mexico',
+        continentCode: 10,
+      },
+      {
+        continent: 'North America',
+        iso: 'US',
+        name: 'United States',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'USA',
+        continentCode: 10,
+      },
+      {
+        continent: 'Western Europe',
+        iso: 'FR',
+        name: 'France',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'France',
+        continentCode: 20,
+      },
+      {
+        continent: 'Western Europe',
+        iso: 'DE',
+        name: 'Germany',
+        noPostalCode: false,
+        limited: false,
+        notAvailable: false,
+        url: 'Germany',
+        continentCode: 20,
+      },
+    ];
 
-    expect(actualResult).toEqual(expectedResult);
+    const actualCountries = await fetchCountries();
+    expect(actualCountries).toEqual(mockCountries);
   });
 
-  it('should resolve with failure when fetch fails', async () => {
+  it('should throw an error when the returned data is not in the expected format', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn(() => Promise.reject(new Error('Network failure'))),
+      () =>
+        Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ invalid: 'data' }),
+        }) as unknown as Promise<Response>,
     );
 
-    const { result } = getCountries();
-    const actualResult = await result;
-    const expectedResult = {
-      isSuccess: false,
-      error: new Error('Network failure'),
-    };
-
-    expect(actualResult).toEqual(expectedResult);
+    await expect(fetchCountries()).rejects.toThrow(
+      'Invalid data structure for countries',
+    );
   });
 
-  it('should abort the request when abort is called', () => {
-    const abortSpy = vi.spyOn(AbortController.prototype, 'abort');
+  it('should throw an error when the API response is not ok', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn(
-        () =>
-          new Promise(() => {
-            return undefined; // Never resolves
-          }),
-      ),
+      () =>
+        Promise.resolve({
+          ok: false,
+          status: 500,
+          statusText: 'Internal Server Error',
+        }) as unknown as Promise<Response>,
     );
 
-    const { abort } = getCountries();
-    abort(); // Will trigger abort prototype
+    await expect(fetchCountries()).rejects.toThrow(
+      'Error 500: Internal Server Error',
+    );
+  });
 
-    expect(abortSpy).toHaveBeenCalled();
+  it('should throw an error when a network error occurs', async () => {
+    vi.stubGlobal('fetch', () => Promise.reject(new Error('Network error')));
+
+    await expect(fetchCountries()).rejects.toThrow('Network error');
   });
 });
